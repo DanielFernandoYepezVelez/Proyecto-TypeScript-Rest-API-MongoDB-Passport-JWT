@@ -3,12 +3,15 @@ import { connect } from "mongoose";
 class Connection {
   public async connected(): Promise<void> {
     try {
-      const mongo = await connect("mongodb://localhost/passport_jwt", {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-      });
+      const mongo = await connect(
+        process.env.DATABASE_URI || "mongodb://localhost/passport_jwt",
+        {
+          useNewUrlParser: true,
+          useCreateIndex: true,
+          useUnifiedTopology: true,
+          useFindAndModify: false,
+        }
+      );
 
       if (mongo) {
         console.log(">>> Database Is Connected");

@@ -1,11 +1,12 @@
 import { model, Schema } from "mongoose";
 import bcrypt from "bcrypt";
 
-import { IUser } from "../interface/User";
+import { IUser } from "../interface/IUser";
 
 const userSchema = new Schema({
   email: {
     type: String,
+    unique: true,
     required: true,
     lowercase: true,
     trim: true,

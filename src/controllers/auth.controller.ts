@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 
 import User from "../models/User";
-import { IUser } from "../interface/User";
-import { createToken } from "../helpers/jwt";
+import { IUser } from "../interface/IUser";
+import { Jwt } from "../libs/jwt";
 
 class AuthController {
   public async signup(req: Request, res: Response): Promise<Response<JSON>> {
@@ -60,10 +60,14 @@ class AuthController {
         });
       }
 
+      /* Crear Un Token */
+      const objectJwt = new Jwt();
+      const token = objectJwt.createToken(user);
+
       return res.json({
         ok: true,
-        msg: "User Loggued Successfuly",
-        token: createToken(user),
+        msg: "User Login Successfuly",
+        token,
       });
     } catch {
       return res.status(400).json({
